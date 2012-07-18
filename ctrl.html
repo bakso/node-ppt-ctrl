@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>ppt遥控器</title>
+	<style>
+
+	.btnWrap{
+		
+	}
+	#J_Prev, #J_Next{
+		display: block;
+		font-size: 150px;
+		margin:100px auto;
+		width:800px;
+	}
+	</style>
+	</head>
+
+	<body>
+		<div class="btnWrap">
+			<button id="J_Prev">上一张</button>
+			<button id="J_Next">下一张</button>			
+		</div>
+
+	</body>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+    var socket = io.connect('http://'+location.hostname);
+    var prev = document.getElementById('J_Prev');
+    var next = document.getElementById('J_Next');
+
+    prev.onclick = function(){
+    	socket.emit('prev');
+    }
+
+    next.onclick = function(){
+    	socket.emit('next');
+    }
+
+	</script>
+	</script>
+</html>
