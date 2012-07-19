@@ -13,6 +13,17 @@
 		margin:100px auto;
 		width:800px;
 	}
+    .time{
+        font-size: 100px;
+    }
+    .time button{
+        font-size: 100px;
+    }
+    .time input{
+        line-height: 100px;
+        vertical-align: middle;
+        font-size: 100px;
+    }
 	</style>
 	</head>
 
@@ -21,7 +32,10 @@
 			<button id="J_Prev">上一张</button>
 			<button id="J_Next">下一张</button>			
 		</div>
-
+        <div class="time">
+        倒计时设定：<span id="timenow"></span>
+            <p><input type="text" id="lasttime" size="6"/><button onclick="setTime();">确定</button></p>
+        </div>
 	</body>
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
@@ -35,8 +49,22 @@
 
     next.onclick = function(){
     	socket.emit('next');
-    }
+    };
 
+    function formatTime(s){
+        var h = Math.floor(s/60);
+        return h+":"+(s%60);
+    }
+    function setTime(){
+        var ipt = document.getElementById("lasttime");
+        var time = ipt.value-0;
+        time = time*60;
+        ipt.parentNode.style.display = "none";
+        document.getElementById("timenow").innerHTML= formatTime(time);
+        setInterval(function(){
+            document.getElementById("timenow").innerHTML = formatTime(--time);
+        },1000);
+    }
 	</script>
-	</script>
+
 </html>
